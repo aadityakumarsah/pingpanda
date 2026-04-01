@@ -63,11 +63,12 @@ export const router = <T extends Record<string, OperationType<any, any>>>(
 
     if (operation.type === "query") {
       if (operation.schema) {
+        // @ts-ignore
         route.get(
-          path,
+          path as string,
           queryParsingMiddleware,
           ...operationMiddlewares,
-          (c) => {
+          (async (c: any, next: any) => {
             const ctx = c.get("__middleware_output") || {}
             const parsedQuery = c.get("parsedQuery")
 
@@ -86,22 +87,24 @@ export const router = <T extends Record<string, OperationType<any, any>>>(
             }
 
             return operation.handler({ c, ctx, input })
-          }
+          }) as any
         )
       } else {
-        route.get(path, ...operationMiddlewares, (c) => {
+        // @ts-ignore
+        route.get(path as string, ...operationMiddlewares, (async (c: any, next: any) => {
           const ctx = c.get("__middleware_output") || {}
 
           return operation.handler({ c, ctx, input: undefined })
-        })
+        }) as any)
       }
     } else if (operation.type === "mutation") {
       if (operation.schema) {
+        // @ts-ignore
         route.post(
-          path,
+          path as string,
           bodyParsingMiddleware,
           ...operationMiddlewares,
-          (c) => {
+          (async (c: any, next: any) => {
             const ctx = c.get("__middleware_output") || {}
             const parsedBody = c.get("parsedBody")
 
@@ -120,14 +123,15 @@ export const router = <T extends Record<string, OperationType<any, any>>>(
             }
 
             return operation.handler({ c, ctx, input })
-          }
+          }) as any
         )
       } else {
-        route.post(path, ...operationMiddlewares, (c) => {
+        // @ts-ignore
+        route.post(path as string, ...operationMiddlewares, (async (c: any, next: any) => {
           const ctx = c.get("__middleware_output") || {}
 
           return operation.handler({ c, ctx, input: undefined })
-        })
+        }) as any)
       }
     }
   })
