@@ -1,0 +1,41 @@
+{
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm ci",
+  "framework": "nextjs",
+  "env": {
+    "NEXT_PUBLIC_APP_URL": {
+      "description": "The URL of your application",
+      "required": true
+    },
+    "DATABASE_URL": {
+      "description": "PostgreSQL database URL (Neon)",
+      "required": true
+    },
+    "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY": {
+      "description": "Clerk publishable key",
+      "required": true
+    },
+    "CLERK_SECRET_KEY": {
+      "description": "Clerk secret key",
+      "required": true
+    },
+    "DISCORD_BOT_TOKEN": {
+      "description": "Discord bot token",
+      "required": true
+    },
+    "STRIPE_SECRET_KEY": {
+      "description": "Stripe secret key",
+      "required": true
+    },
+    "DISCORD_APPLICATION_ID": {
+      "description": "Discord application ID",
+      "required": false
+    }
+  },
+  "git": {
+    "deploymentEnabled": {
+      "main": true
+    }
+  }
+}
